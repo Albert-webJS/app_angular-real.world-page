@@ -2,7 +2,7 @@ import { environment as env } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable, publishReplay, shareReplay } from 'rxjs';
-import { Article, ArticleRequest, Articles} from '../interfaces/article';
+import { Article, ArticleRequest, Articles } from '../interfaces/article';
 
 type Tags = {
   tags: string[];
@@ -14,22 +14,31 @@ type Tags = {
 
 export class DataService {
 
+  private tags: Observable<string[]>;
+  private articles: Observable<Article[]>;
+
   constructor(private http: HttpClient) { }
 
   getTagsElement(): Observable<string[]> {
-    return this.http.get<Tags>(`${env.domain}/api/tags`)
-      .pipe(
-        shareReplay(1),
-        map(tags => tags.tags)
-      )
+    if (!this.tags) {
+      this.tags = this.http.get<Tags>(`${env.domain}/api/tags`)
+        .pipe(
+          map(tags => tags.tags),
+          shareReplay(1)
+        )
+    }
+    return this.tags;
   }
 
   getArticles(): Observable<Article[]> {
-    return this.http.get<Articles>(`${env.domain}/api/articles?limit=10&offset=0`)
-      .pipe(
-        shareReplay(1),
-        map(articles => articles.articles),
-      )
+    if (!this.articles) {
+      this.articles = this.http.get<Articles>(`${env.domain}/api/articles?limit=10&offset=0`)
+        .pipe(
+          shareReplay(1),
+          map(articles => articles.articles),
+        )
+    }
+    return this.articles;
   }
 
   getArticlesByTag(tag: string): Observable<Article[]> {
