@@ -1,0 +1,40 @@
+<nav class="navbar navbar-light">
+  <div class="container">
+    <a routerLink="/" class="navbar-brand">conduit</a>
+    <ul class="nav navbar-nav pull-xs-right">
+      <li class="nav-item">
+        <a routerLink="/" class="nav-link active">Home</a>
+      </li>
+      <ng-container *ngIf="isAuthenticate(); else logged">
+        <li class="nav-item">
+          <a routerLink="create" class="nav-link">
+            <i class="ion-compose"></i>&nbsp;New Article
+          </a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="setting" class="nav-link">
+            <i class="ion-gear-a"></i>&nbsp;Settings
+          </a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="user" class="nav-link">
+            <i class="bi bi-person-check"></i>&nbsp; {{ getUserName() }}
+          </a>
+        </li>
+        <li (click)="logOut()" class="nav-item">
+          <a class="nav-link">
+            <i class="bi bi-box-arrow-right"></i>
+          </a>
+        </li>
+      </ng-container>
+      <ng-template #logged>
+        <li class="nav-item">
+          <a routerLink="login" class="nav-link">Sign in</a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="register" class="nav-link">Sign up</a>
+        </li>
+      </ng-template>
+    </ul>
+  </div>
+</nav>

@@ -1,0 +1,32 @@
+<ng-container *ngIf="articles | async else loading">
+  <div class="article-preview" *ngFor="let article of articles | async">
+    <div class="article-meta">
+      <a routerLink="/user"><img src="{{ article.author.image }}" /></a>
+      <div class="info">
+        <a href="" class="author">{{ article.author.username }}</a>
+        <span class="date">{{ article.createdAt | date : "medium" }}</span>
+      </div>
+      <button
+        (click)="onSwitchPath()"
+        class="btn btn-outline-primary btn-sm pull-xs-right"
+      >
+        <i class="ion-heart"></i> {{ article.favoritesCount }}
+      </button>
+    </div>
+    <a routerLink="article" class="preview-link">
+      <h1>{{ article.title }}</h1>
+      <p>{{ article.body }}</p>
+      <span>Read more...</span>
+      <ul class="tag-list">
+        <li *ngFor="let tag of article.tagList">
+          <app-tag [tag]="tag" appearance="tag-outline"></app-tag>
+        </li>
+      </ul>
+    </a>
+  </div>
+</ng-container>
+<ng-template #loading>
+  <div class="article-preview">
+    Loading articles...
+  </div>
+</ng-template>

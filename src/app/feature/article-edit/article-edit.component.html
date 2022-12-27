@@ -1,0 +1,37 @@
+<div class="editor-page">
+  <div class="container page">
+    <div class="row">
+      <div class="col-md-10 offset-md-1 col-xs-12">
+        <form [formGroup]="editFormControl" (ngSubmit)="onSubmited()">
+          <fieldset>
+            <fieldset
+              *ngFor="let elementForm of editElementFrom"
+              class="form-group"
+            >
+              <input
+                *ngIf="elementForm.tag === 'input'"
+                type="{{ elementForm.type }}"
+                class="form-control form-control-lg"
+                placeholder="{{ elementForm.placeholder }}"
+                formControlName="{{ elementForm.nameElementForm }}"
+              />
+              <textarea
+                *ngIf="elementForm.tag === 'textarea'"
+                class="form-control"
+                rows="{{ elementForm.row }}"
+                placeholder="{{ elementForm.placeholder }}"
+                formControlName="{{ elementForm.nameElementForm }}"
+              ></textarea>
+            </fieldset>
+            <button
+              [disabled]="editFormControl.invalid"
+              class="btn btn-lg pull-xs-right btn-primary"
+            >
+              Publish Article
+            </button>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

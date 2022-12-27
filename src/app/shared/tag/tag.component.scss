@@ -1,0 +1,17 @@
+.tag-pill {
+  user-select: none;
+}
+.tag-pill:hover {
+  filter: brightness(120%);
+  cursor: pointer;
+}
+
+.tag-pill:active {
+  filter: brightness(90%);
+}
+
+.tag-pill.selected {
+  background-color: #5cb85c;
+}
+
+  

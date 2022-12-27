@@ -1,0 +1,9 @@
+<div class="view-loading">
+  <div *ngIf="isLoading" class="spinner"></div>
+  <span 
+    class="message" 
+    [class.succes]="isAuth" 
+    [class.failed]="isError">
+    {{ message }}
+  </span>
+</div>

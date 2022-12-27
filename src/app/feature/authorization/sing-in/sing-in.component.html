@@ -1,0 +1,43 @@
+<div class="auth-page">
+  <div class="container page">
+    <div class="row">
+      <div class="col-md-6 offset-md-3 col-xs-12">
+        <h1 class="text-xs-center">Sign in</h1>
+        <p class="text-xs-center">
+          <a (click)="onSwitchPath()" href="javascript:void(0)">
+            Need an account?
+          </a>
+        </p>
+        <form [formGroup]="userFormConfirmation" (ngSubmit)="onSubmited()">
+          <fieldset
+            *ngFor="let elementForm of inputElementForm"
+            class="form-group"
+          >
+            <input
+              *ngIf="!elementForm.hidden"
+              class="form-control form-control-lg"
+              type="{{ elementForm.type }}"
+              placeholder="{{ elementForm.placeholder }}"
+              formControlName="{{ elementForm.controlName }}"
+            />
+          </fieldset>
+          <div class="box-event">
+            <app-loading
+              [isLoading]="(isLoading | async)!"
+              [isAuth]="service.isAuthentificated"
+              [isError]="(isError | async)!"
+              [message]="(eventMessageDataProcessing | async)!"
+            >
+            </app-loading>
+            <button
+              [disabled]="userFormConfirmation.invalid"
+              class="btn btn-lg btn-primary pull-xs-righ"
+            >
+              Sign up
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

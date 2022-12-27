@@ -1,1 +1,49 @@
-/* You can add global styles to this file, and also import other style files */
+.form-control {
+  &:focus.ng-invalid {
+    border: 1px solid rgba(180, 51, 51, 0.698);
+  }
+  &:focus.ng-valid {
+    border: 1px solid #5cb85c;
+  }
+}
+
+.box-event {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  & button {
+    margin-left: auto;
+  }
+  .view-loading {
+    display: flex;
+    gap: 30px;
+    .spinner {
+      width: 25px;
+      height: 25px;
+      border-right: 2px solid #5cb85c;
+      border-radius: 50%;
+      animation: rotation 2s infinite linear;
+    }
+    .message {
+      font-size: 18px;
+      font-weight: 600;
+
+      &.succes {
+        color: #5cb85c;
+      }
+      &.failed {
+        color: #b85c5c;
+      }
+    }
+  }
+}
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(359deg);
+  }
+}
