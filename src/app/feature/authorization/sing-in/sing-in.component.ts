@@ -65,7 +65,6 @@ export class SingInComponent {
         next: () => {
           this.isLoading.next(Loading.completed);
           this.eventMessageDataProcessing.next(Status.success);
-          this.userFormConfirmation.reset();
           this.switchHomePage();
         },
         error: (error: HttpErrorResponse) => {
@@ -74,6 +73,9 @@ export class SingInComponent {
           const message = Object.entries(errors).join("");
           this.eventMessageDataProcessing.next(`${Status.error}, ${message} !`);
           this.isLoading.next(Loading.completed);
+        },
+        complete: () => {
+          this.userFormConfirmation.reset();
         }
       })
   };

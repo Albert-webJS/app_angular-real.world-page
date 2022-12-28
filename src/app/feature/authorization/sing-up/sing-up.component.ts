@@ -66,7 +66,6 @@ export class SingUpComponent {
         next: () => {
           this.isLoading.next(Loading.completed);
           this.eventMessageDataProcessing.next(Status.success);
-          this.userForm.reset();
           this.switchHomePage();
         },
         error: (error: HttpErrorResponse) => {
@@ -75,6 +74,9 @@ export class SingUpComponent {
           const message = Object.entries(errors).join("");
           this.eventMessageDataProcessing.next(`${Status.error}, ${message} !`);
           this.isLoading.next(Loading.completed);
+        },
+        complete: () => {
+          this.userForm.reset();
         }
       })
   };
