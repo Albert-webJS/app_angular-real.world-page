@@ -1,8 +1,9 @@
 import { environment as env } from 'src/environments/environment';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable, shareReplay } from 'rxjs';
 import { Article, ArticleRequest, Articles } from '../interfaces/article';
+import { AuthService } from '.';
 
 type Tags = {
   tags: string[];
@@ -17,7 +18,7 @@ export class DataService {
   private tags: Observable<string[]>;
   private articles: Observable<Article[]>;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private authService: AuthService) { }
 
   getTagsElement(): Observable<string[]> {
     if (!this.tags) {
@@ -49,6 +50,9 @@ export class DataService {
   }
 
   createArticle(article: ArticleRequest): Observable<Article> {
-    return this.http.post<Article>(`${env.domain}/api/articles`, article);
+    const headers = new HttpHeaders({
+      Authorization: `Token ${this.authService.user$.value?.token}`
+    })
+    return this.http.post<Article>(`${env.domain}/api/articles`, article, { headers });
   }
 }

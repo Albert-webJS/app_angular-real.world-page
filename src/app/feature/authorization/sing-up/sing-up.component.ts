@@ -64,8 +64,6 @@ export class SingUpComponent {
       )
       .subscribe({
         next: () => {
-          this.isLoading.next(Loading.completed);
-          this.eventMessageDataProcessing.next(Status.success);
           this.switchHomePage();
         },
         error: (error: HttpErrorResponse) => {
@@ -76,6 +74,8 @@ export class SingUpComponent {
           this.isLoading.next(Loading.completed);
         },
         complete: () => {
+          this.isLoading.next(Loading.completed);
+          this.eventMessageDataProcessing.next(Status.success);
           this.userForm.reset();
         }
       })

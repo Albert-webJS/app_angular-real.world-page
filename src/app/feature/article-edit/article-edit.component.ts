@@ -1,9 +1,12 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, DOCUMENT } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
 import { User } from 'src/app/interfaces';
-import { DataService } from 'src/app/service';
+import { AuthService, DataService } from 'src/app/service';
+import { LoadingComponent } from 'src/app/shared';
 import { ArticleEditElementForm, EDIT_ELEMENT_ITEMS } from './edit-item';
 
 @Component({
@@ -11,19 +14,28 @@ import { ArticleEditElementForm, EDIT_ELEMENT_ITEMS } from './edit-item';
   templateUrl: './article-edit.component.html',
   styleUrls: ['./article-edit.component.scss'],
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, LoadingComponent],
 })
 
 export class ArticleEditComponent {
 
-  public currentUserInfo: User | null;
   public editElementFrom: ArticleEditElementForm[] = EDIT_ELEMENT_ITEMS
   public editFormControl: FormGroup = this.controlEditForm();
 
+  public isLoading = new BehaviorSubject<boolean>(false);
+  public isError = new BehaviorSubject<boolean>(false);
+  public eventMessageDataProcessing = new BehaviorSubject<string>("");
+
   constructor(
     private fb: FormBuilder,
-    private service: DataService
+    private service: DataService,
+    private authService: AuthService,
+    private router: Router,
   ) { }
+
+  isAuthenticate(): boolean {
+    return this.authService.isAuthentificated;
+  }
 
   controlEditForm(): FormGroup {
     return this.fb.group({
@@ -34,7 +46,14 @@ export class ArticleEditComponent {
     })
   }
 
+  onSwitchHomePath(): void {
+    setTimeout(() => {
+      this.router.navigate([this.authService.document.location.origin])
+    }, 500)
+  }
+
   onSubmited(): void {
+    this.isLoading.next(true);
     this.service.createArticle({
       article: {
         title: this.editFormControl.value.title,
@@ -44,12 +63,20 @@ export class ArticleEditComponent {
       }
     }).subscribe({
       next: () => {
-        this.editFormControl.reset();
+        this.onSwitchHomePath();
       },
       error: (error: HttpErrorResponse) => {
-        console.log("error response article: ", error)
+        this.isError.next(true);
+        this.isLoading.next(false);
+        const { errors } = error.error;
+        const message = Object.entries(errors).join("");
+        this.eventMessageDataProcessing.next(`Failed: ${message}`)
+      },
+      complete: () => {
+        this.isLoading.next(false);
+        this.eventMessageDataProcessing.next("Success !")
+        this.editFormControl.reset();
       }
     })
   }
-
 }

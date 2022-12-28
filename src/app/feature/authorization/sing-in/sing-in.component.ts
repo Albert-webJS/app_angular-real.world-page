@@ -36,7 +36,7 @@ export class SingInComponent {
   userFormVerification(): FormGroup {
     return this.fb.group({
       email: ["", Validators.email],
-      password: ["", Validators.required],
+      password: ["", [Validators.required, Validators.minLength(6)]],
     })
   };
 
@@ -63,8 +63,6 @@ export class SingInComponent {
       )
       .subscribe({
         next: () => {
-          this.isLoading.next(Loading.completed);
-          this.eventMessageDataProcessing.next(Status.success);
           this.switchHomePage();
         },
         error: (error: HttpErrorResponse) => {
@@ -75,6 +73,8 @@ export class SingInComponent {
           this.isLoading.next(Loading.completed);
         },
         complete: () => {
+          this.isLoading.next(Loading.completed);
+          this.eventMessageDataProcessing.next(Status.success);
           this.userFormConfirmation.reset();
         }
       })

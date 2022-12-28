@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { AuthService } from 'src/app/service';
+import { LoadingComponent } from 'src/app/shared';
 
 @Component({
   selector: 'app-header',

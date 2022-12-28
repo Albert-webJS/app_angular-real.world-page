@@ -23,12 +23,21 @@
                 formControlName="{{ elementForm.nameElementForm }}"
               ></textarea>
             </fieldset>
-            <button
-              [disabled]="editFormControl.invalid"
-              class="btn btn-lg pull-xs-right btn-primary"
-            >
-              Publish Article
-            </button>
+            <div class="box-event">
+              <app-loading
+                [isLoading]="(isLoading | async)!"
+                [isAuth]="isAuthenticate()"
+                [isError]="(isError | async)!"
+                [message]="(eventMessageDataProcessing | async)!"
+              >
+              </app-loading>
+              <button
+                [disabled]="editFormControl.invalid"
+                class="btn btn-lg pull-xs-right btn-primary"
+              >
+                Publish Article
+              </button>
+            </div>
           </fieldset>
         </form>
       </div>
