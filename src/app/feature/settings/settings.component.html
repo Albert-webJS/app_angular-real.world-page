@@ -4,10 +4,7 @@
       <div class="col-md-6 offset-md-3 col-xs-12">
         <h1 class="text-xs-center">Your Settings</h1>
 
-        <form 
-          [formGroup]="settingFormControl" 
-          (ngSubmit)="onSubmited()"
-        >
+        <form [formGroup]="settingFormControl" (ngSubmit)="onSubmited()">
           <fieldset>
             <fieldset class="form-group">
               <input
@@ -49,21 +46,27 @@
                 formControlName="password"
               />
             </fieldset>
-            <button 
-              [disabled]="settingFormControl.invalid" 
-              class="btn btn-lg btn-primary pull-xs-right"
-            >
-              Update Settings
-            </button>
+            <div class="box-event">
+              <app-loading
+                [isLoading]="(isLoading | async)!"
+                [isAuth]="isAuthenticate()"
+                [isError]="(isError | async)!"
+                [message]="(eventMessageDataProcessing | async)!"
+              >
+              </app-loading>
+              <button
+                [disabled]="settingFormControl.invalid"
+                class="btn btn-lg btn-primary pull-xs-right"
+              >
+                Update Settings
+              </button>
+            </div>
           </fieldset>
         </form>
         <hr />
-        <button 
-          class="btn btn-outline-danger"
-          (click)="logOut();"
-        >
-        Or click here to logout.
-      </button>
+        <button class="btn btn-outline-danger" (click)="logOut()">
+          Or click here to logout.
+        </button>
       </div>
     </div>
   </div>

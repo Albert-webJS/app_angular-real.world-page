@@ -39,6 +39,13 @@ export class AuthService {
     return this.http.get<UserRequest>(`${env.domain}/api/user`, { headers })
   }
 
+  upDateUser(user: UserRequest): Observable<Object> {
+    const headers = new HttpHeaders({
+      Authorization: `Token ${this.user$.value?.token}`
+    })
+    return this.http.put(`${env.domain}/api/user`, user, { headers })
+  }
+
   logout(): void {
     this.user$.next(null);
     this.router.navigate([this.document.location.origin]);

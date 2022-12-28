@@ -29,7 +29,7 @@ export class DataService {
         )
     }
     return this.tags;
-  }
+  };
 
   getArticles(): Observable<Article[]> {
     if (!this.articles) {
@@ -40,19 +40,19 @@ export class DataService {
         )
     }
     return this.articles;
-  }
+  };
 
   getArticlesByTag(tag: string): Observable<Article[]> {
     return this.http.get<Articles>(`${env.domain}/api/articles?tag=${tag}`)
       .pipe(
         map(articles => articles.articles)
       )
-  }
+  };
 
   createArticle(article: ArticleRequest): Observable<Article> {
     const headers = new HttpHeaders({
       Authorization: `Token ${this.authService.user$.value?.token}`
     })
     return this.http.post<Article>(`${env.domain}/api/articles`, article, { headers });
-  }
+  };
 }
