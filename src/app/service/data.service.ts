@@ -1,7 +1,7 @@
 import { environment as env } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, Observable, publishReplay, shareReplay } from 'rxjs';
+import { map, Observable, shareReplay } from 'rxjs';
 import { Article, ArticleRequest, Articles } from '../interfaces/article';
 
 type Tags = {
@@ -34,8 +34,8 @@ export class DataService {
     if (!this.articles) {
       this.articles = this.http.get<Articles>(`${env.domain}/api/articles?limit=10&offset=0`)
         .pipe(
-          shareReplay(1),
           map(articles => articles.articles),
+          shareReplay(1),
         )
     }
     return this.articles;
