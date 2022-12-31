@@ -1,7 +1,7 @@
 import { environment as env } from 'src/environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, Observable, publish, shareReplay } from 'rxjs';
+import { map, Observable, shareReplay } from 'rxjs';
 import { Article, ArticleRequest, Articles } from '../interfaces/article';
 import { AuthService } from '.';
 
@@ -17,6 +17,8 @@ export class DataService {
 
   private tags: Observable<string[]>;
   private articles: Observable<Article[]>;
+  private currentTag: string;
+  // private articlesByTag: Observable<Article[]>;
 
   constructor(private http: HttpClient, private authService: AuthService) { }
 
@@ -43,11 +45,15 @@ export class DataService {
   };
 
   getArticlesByTag(tag: string): Observable<Article[]> {
-    return this.http.get<Articles>(`${env.domain}/api/articles?tag=${tag}`)
-      .pipe(
-        map(articles => articles.articles),
-        shareReplay({refCount: true})
-      )
+    if (this.currentTag !== tag) {
+      this.articles = this.http.get<Articles>(`${env.domain}/api/articles?tag=${tag}`)
+        .pipe(
+          map(articles => articles.articles),
+          shareReplay({ refCount: true })
+        )
+    }
+    this.currentTag = tag;
+    return this.articles;
   };
 
   createArticle(article: ArticleRequest): Observable<Article> {
