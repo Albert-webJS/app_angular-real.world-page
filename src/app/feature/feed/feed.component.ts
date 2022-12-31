@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { forkJoin, Observable } from 'rxjs';
+import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
 import { DataService } from 'src/app/service';
 import { Article } from 'src/app/interfaces';
 import { CommonModule } from '@angular/common';
@@ -15,7 +15,7 @@ import { PopularTagsComponent } from 'src/app/shared';
   standalone: true,
   imports: [CommonModule, FeedHeaderComponent, FeedItemComponent, FeedNavComponent, PopularTagsComponent]
 })
-export class FeedComponent implements OnInit {
+export class FeedComponent {
 
   public tag: string;
   public tagsElement: Observable<string[]> = this.service.getTagsElement();
@@ -24,17 +24,6 @@ export class FeedComponent implements OnInit {
   constructor(
     private service: DataService
   ) { }
-
-  ngOnInit(): void {
-    // this.parallelRequestCall();
-  }
-
-  // parallelRequestCall(): void {
-  //   forkJoin([
-  //     this.tagsElement = this.service.getTagsElement(),
-  //     this.articles = this.service.getArticles(),
-  //   ]);
-  // };
 
   onSelect(tag: string) {
     this.tag = tag
