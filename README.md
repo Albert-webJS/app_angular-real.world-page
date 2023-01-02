@@ -1,7 +1,6 @@
 
 ### 💻: About this project:
-- :telescope: Created SPA, use Routing & Guard, HttpClient, Reactive Form. RxJs, user authentication, conditional rendering. CRUD. ![image](https://user-images.githubusercontent.com/79869157/210191005-944b3c52-5b42-40bf-81db-4d8c2b323342.png)
-.
+- :telescope: Created SPA, use Routing & Guard, HttpClient, Reactive Form. RxJs, user authentication, conditional rendering. CRUD.
 
 - :mailbox:How to reach me: [![Telegram Badge](https://img.shields.io/badge/-Telegram-blue?style=flat&logo=Telegram&logoColor=white)](https://t.me/AlikPivnenko)
 ---
