@@ -1,9 +1,13 @@
 <ng-container *ngIf="articles | async else loading">
-  <div class="article-preview" *ngFor="let article of articles | async">
+  <div 
+    (click)="getArticleSlug(article.slug, $event)"
+    *ngFor="let article of articles | async"
+    class="article-preview"
+    >
     <div class="article-meta">
       <a routerLink="/user"><img src="{{ article.author.image }}" /></a>
       <div class="info">
-        <a href="" class="author">{{ article.author.username }}</a>
+        <a routerLink="/user" class="author">{{ article.author.username }}</a>
         <span class="date">{{ article.createdAt | date : "medium" }}</span>
       </div>
       <button

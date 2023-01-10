@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { Observable } from 'rxjs';
 import { DataService, AuthService } from 'src/app/service';
 import { TagComponent } from 'src/app/shared';
@@ -12,7 +12,7 @@ import { Article } from '../../interfaces/article';
   templateUrl: './feed-item.component.html',
   styleUrls: ['./feed-item.component.scss'],
   standalone: true,
-  imports: [CommonModule, TagComponent],
+  imports: [CommonModule, TagComponent, RouterModule],
 })
 
 export class FeedItemComponent {
@@ -29,5 +29,8 @@ export class FeedItemComponent {
     if (!this.authService.isAuthentificated) {
       this.router.navigate(["/register"]);
     }
+  }
+  getArticleSlug(slug: string, event: Event): void {
+    console.log("atricle id: ", slug, "event: ", event);
   }
 }
