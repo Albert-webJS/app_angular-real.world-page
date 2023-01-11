@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
-import { Router, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { Observable } from 'rxjs';
-import { DataService, AuthService } from 'src/app/service';
+import { DataService } from 'src/app/service';
 import { TagComponent } from 'src/app/shared';
 import { Article } from '../../interfaces/article';
 
@@ -21,16 +21,9 @@ export class FeedItemComponent {
 
   constructor(
     public service: DataService,
-    private authService: AuthService,
-    private router: Router,
   ) { };
 
-  onSwitchPath(): void {
-    if (!this.authService.isAuthentificated) {
-      this.router.navigate(["/register"]);
-    }
-  }
-  getArticleSlug(slug: string, event: Event): void {
-    console.log("atricle id: ", slug, "event: ", event);
+  getArticleSlug(slug: string): void {
+    console.log("request: ", this.service.getArticleBySlug(slug).subscribe());
   }
 }

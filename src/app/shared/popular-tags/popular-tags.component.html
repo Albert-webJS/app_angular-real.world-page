@@ -1,11 +1,8 @@
 <div class="sidebar">
   <p>Popular Tags</p>
   <div class="tag-list">
-    <span
-      *ngFor="let tag of tags | async"
-      (click)="onSelectTag(tag)"
-    >
+    <span *ngFor="let tag of tags | async" (click)="onSelectTag(tag)">
       <app-tag [tag]="tag" [selectedTag]="selectedTag"></app-tag>
-  </span>
+    </span>
   </div>
 </div>

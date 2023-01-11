@@ -1,7 +1,7 @@
 import { environment as env } from 'src/environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, Observable, shareReplay, tap } from 'rxjs';
+import { map, Observable, shareReplay } from 'rxjs';
 import { Article, ArticleRequest, Articles } from '../interfaces/article';
 import { AuthService } from '.';
 
@@ -55,16 +55,9 @@ export class DataService {
     return this.articles;
   };
 
-  // favoriteArticle(slug: string): any {
-  //   const headers = new HttpHeaders({
-  //     Authorization: `Token ${this.authService.user$.value?.token}`
-  //   })
-  //   return this.http.post(`${env.domain}/api/articles/:${slug}/favorite`, this.articles, { headers })
-  //     .pipe(
-  //       map((article: Article) => article.favoritesCount += 1)
-  //     )
-  //     .subscribe()
-  // }
+  getArticleBySlug(slug: string): Observable<any> {
+    return this.http.get<any>(`${env.domain}/api/articles/:${slug}`)
+  }
 
   createArticle(article: ArticleRequest): Observable<Article> {
     const headers = new HttpHeaders({

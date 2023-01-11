@@ -1,0 +1,13 @@
+.loading {
+  display: inline-block;
+  clip-path: inset(0 2ch 0 0);
+  animation: loading 1s steps(10) infinite;
+  margin-left: -110px;
+  border-top: 0;
+}
+
+@keyframes loading {
+  to {
+    clip-path: inset(0 -2ch 0 0);
+  }
+}
