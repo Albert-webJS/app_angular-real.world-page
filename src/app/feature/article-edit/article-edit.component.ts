@@ -3,7 +3,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, debounceTime } from 'rxjs';
 import { User } from 'src/app/interfaces';
 import { AuthService, DataService } from 'src/app/service';
 import { LoadingComponent } from 'src/app/shared';
@@ -47,9 +47,7 @@ export class ArticleEditComponent {
   }
 
   onSwitchHomePath(): void {
-    setTimeout(() => {
-      this.router.navigate([this.authService.document.location.origin])
-    }, 500)
+    this.router.navigate([this.authService.document.location.origin])
   }
 
   onSubmited(): void {
@@ -63,6 +61,7 @@ export class ArticleEditComponent {
       }
     }).subscribe({
       next: () => {
+        debounceTime(500);
         this.onSwitchHomePath();
       },
       error: (error: HttpErrorResponse) => {

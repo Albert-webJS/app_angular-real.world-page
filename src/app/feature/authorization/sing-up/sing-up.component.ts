@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Router } from '@angular/router';
 import { AuthService } from '../../../service';
 import { InputElementForm, INPUT_ELEMENT_FORMS } from '../input-item';
-import { BehaviorSubject, tap } from 'rxjs';
+import { BehaviorSubject, debounceTime, tap } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { User } from 'src/app/interfaces';
 import { Loading, Status } from '../auth.types';
@@ -45,9 +45,7 @@ export class SingUpComponent {
   };
 
   switchHomePage(): void {
-    setTimeout(() => {
-      this.router.navigate([this.service.document.location.origin])
-    }, 500)
+    this.router.navigate([this.service.document.location.origin])
   };
 
   onSubmited(): void {
@@ -64,6 +62,7 @@ export class SingUpComponent {
       )
       .subscribe({
         next: () => {
+          debounceTime(500);
           this.switchHomePage();
         },
         error: (error: HttpErrorResponse) => {

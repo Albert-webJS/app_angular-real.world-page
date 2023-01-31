@@ -2,7 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { BehaviorSubject, tap } from 'rxjs';
+import { BehaviorSubject, debounceTime, tap } from 'rxjs';
 import { User } from 'src/app/interfaces';
 import { AuthService } from 'src/app/service';
 import { InputElementForm, INPUT_ELEMENT_FORMS } from '../input-item';
@@ -45,9 +45,7 @@ export class SingInComponent {
   }
 
   switchHomePage(): void {
-    setTimeout(() => {
-      this.router.navigate([this.service.document.location.origin])
-    }, 500)
+    this.router.navigate([this.service.document.location.origin])
   };
 
   onSubmited(): void {
@@ -63,6 +61,7 @@ export class SingInComponent {
       )
       .subscribe({
         next: () => {
+          debounceTime(500);
           this.switchHomePage();
         },
         error: (error: HttpErrorResponse) => {

@@ -3,7 +3,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, debounceTime } from 'rxjs';
 import { AuthService } from 'src/app/service';
 import { LoadingComponent } from 'src/app/shared';
 
@@ -35,9 +35,7 @@ export class SettingsComponent {
   }
 
   onSwithHomePage(): void {
-    setTimeout(() => {
-      this.router.navigate([this.service.document.location.origin])
-    }, 500)
+    this.router.navigate([this.service.document.location.origin])
   };
 
   controlFormSetting(): FormGroup {
@@ -66,6 +64,7 @@ export class SettingsComponent {
       }
     }).subscribe({
       next: () => {
+        debounceTime(500);
         this.onSwithHomePage();
       },
       error: (error: HttpErrorResponse) => {
