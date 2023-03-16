@@ -12,8 +12,8 @@ export class LoadingComponent {
 
   constructor() { }
 
-  @Input() isLoading: boolean;
-  @Input() isAuth: boolean;
-  @Input() isError: boolean;
-  @Input() message: string;
+  @Input() isLoading: boolean | null;
+  @Input() isAuth: boolean | null;
+  @Input() isError: boolean | null;
+  @Input() message: string | null;
 }

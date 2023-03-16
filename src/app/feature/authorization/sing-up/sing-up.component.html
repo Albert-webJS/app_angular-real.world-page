@@ -25,10 +25,10 @@
           </fieldset>
           <div class="box-event">
             <app-loading
-              [isLoading]="(isLoading | async)!"
+              [isLoading]="(isLoading | async)"
               [isAuth]="service.isAuthentificated"
-              [isError]="(isError | async)!"
-              [message]="(eventMessageDataProcessing | async)!"
+              [isError]="(isError | async)"
+              [message]="(eventMessageDataProcessing | async)"
             >
             </app-loading>
             <button
