@@ -2,7 +2,7 @@ import { provideHttpClient } from '@angular/common/http';
 import { enableProdMode } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
 import { Routes, provideRouter } from '@angular/router';
-import { AppComponent } from './app/core/app.component';
+import { AppComponent } from './app/app.component';
 import { ArticleComponent, ArticleEditComponent, FeedComponent, SettingsComponent, SingInComponent, SingUpComponent } from './app/feature';
 import { AuthGuard } from './app/feature/authorization/auth.guard';
 import { environment } from './environments/environment';

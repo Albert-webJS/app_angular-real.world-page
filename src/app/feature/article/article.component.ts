@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { AuthService } from 'src/app/service';
 
 @Component({
@@ -9,7 +9,7 @@ import { AuthService } from 'src/app/service';
   standalone: true,
   imports: [CommonModule],
 })
-export class ArticleComponent implements OnInit {
+export class ArticleComponent {
 
 
   public currentUser = this.service.user$;
@@ -17,7 +17,4 @@ export class ArticleComponent implements OnInit {
   constructor(
     public service: AuthService
   ) { }
-
-  ngOnInit(): void {
-  }
 }
