@@ -12,4 +12,8 @@ import { HeaderComponent } from './core/header/header.component';
 })
 
 export class AppComponent {
+  title: string = "jest test"
+  sum(a: number, b: number) {
+    return a + b;
+  }
 }
