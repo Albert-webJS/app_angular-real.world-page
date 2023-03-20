@@ -17,7 +17,7 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private router: Router,
-    @Inject(DOCUMENT) public document: Document,
+    @Inject(DOCUMENT) public documentRef: Document,
   ) { }
 
   get isAuthentificated(): boolean {
@@ -48,6 +48,6 @@ export class AuthService {
 
   logout(): void {
     this.user$.next(null);
-    this.router.navigate([this.document.location.origin]);
+    this.router.navigate([this.documentRef.location.origin]);
   }
 }

@@ -35,7 +35,7 @@ export class SettingsComponent {
   }
 
   onSwithHomePage(): void {
-    this.router.navigate([this.service.document.location.origin])
+    this.router.navigate([this.service.documentRef.location.origin])
   };
 
   controlFormSetting(): FormGroup {

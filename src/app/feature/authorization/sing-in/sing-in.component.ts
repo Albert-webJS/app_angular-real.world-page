@@ -45,7 +45,7 @@ export class SingInComponent {
   }
 
   switchHomePage(): void {
-    this.router.navigate([this.service.document.location.origin])
+    this.router.navigate([this.service.documentRef.location.origin])
   };
 
   onSubmited(): void {

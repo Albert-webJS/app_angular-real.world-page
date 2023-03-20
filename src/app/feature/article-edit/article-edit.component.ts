@@ -1,10 +1,9 @@
 import { CommonModule, DOCUMENT } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, Inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { BehaviorSubject, debounceTime } from 'rxjs';
-import { User } from 'src/app/interfaces';
 import { AuthService, DataService } from 'src/app/service';
 import { LoadingComponent } from 'src/app/shared';
 import { ArticleEditElementForm, EDIT_ELEMENT_ITEMS } from './edit-item';
@@ -47,7 +46,7 @@ export class ArticleEditComponent {
   }
 
   onSwitchHomePath(): void {
-    this.router.navigate([this.authService.document.location.origin])
+    this.router.navigate([this.authService.documentRef.location.origin])
   }
 
   onSubmited(): void {

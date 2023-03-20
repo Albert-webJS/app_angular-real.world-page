@@ -1,9 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/service';
-import { LoadingComponent } from 'src/app/shared';
 
 @Component({
   selector: 'app-header',
@@ -17,8 +15,6 @@ export class HeaderComponent {
 
   constructor(private service: AuthService) { }
 
-  // public isAuthenticate: boolean = this.service.isAuthentificated; 
-  
   isAuthenticate(): boolean {
     return this.service.isAuthentificated;
   };
